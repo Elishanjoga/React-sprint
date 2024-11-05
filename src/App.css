@@ -1,0 +1,8 @@
+.content {
+  min-height: calc(100vh - 64px) !important;
+}
+
+.chart text {
+  color: white !important;
+  fill: white !important;
+}
