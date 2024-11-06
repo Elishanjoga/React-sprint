@@ -27,8 +27,6 @@ export default function TripDetails() {
     }
   }, [data]);
 
-  console.log(data);
-
   return (
     <div>
       {loading || !trip ? (

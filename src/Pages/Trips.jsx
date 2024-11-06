@@ -32,7 +32,6 @@ const Trips = () => {
 
   const handleSearch = (e) => {
     e.preventDefault();
-    console.log(selectedTab, selectedDistance, selectedTime);
     navigate(`/trips?tab=${selectedTab}&distance=${selectedDistance}&time=${selectedTime}`);
   };
 

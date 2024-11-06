@@ -19,7 +19,6 @@ export default function TripsList({ trips = [] }) {
     }
 
     const match = range.match(/(\d+)?\s*(?:to|-)?\s*(\d+)?\s*Km|min/i);
-    console.log("match", match);
 
     if (match) {
       const minValue = match[1] ? parseInt(match[1], 10) : 0;
@@ -32,8 +31,6 @@ export default function TripsList({ trips = [] }) {
 
   const filteredTrips = trips?.filter((trip) => {
     const paramsCopy = new URLSearchParams(queryParams);
-
-    console.log(paramsCopy.get("time"));
 
     const minTime = parseRange(paramsCopy.get("time")).minValue;
     const maxTime = parseRange(paramsCopy.get("time")).maxValue;
