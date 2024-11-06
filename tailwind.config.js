@@ -11,6 +11,8 @@ export default {
         pink: "#F27272",
         dark: "#0D0D0D",
         gray: "#717171",
+        green: "#75BF7A",
+        red: "#F27272",
       },
       fontFamily: {
         sans: ["InterVariable", ...defaultTheme.fontFamily.sans],

@@ -15,15 +15,15 @@ import {
   MenuItems,
   TransitionChild,
 } from "@headlessui/react";
-import { Route, Routes } from "react-router-dom";
+import { Route, Routes, Link } from "react-router-dom";
 
 import { ChevronDownIcon } from "@heroicons/react/20/solid";
 import { routes } from "../routes";
 import { useState } from "react";
 
 const navigation = [
-  { name: "Home", href: "#", icon: HomeIcon, current: true },
-  { name: "Trips", href: "#", icon: Squares2X2Icon, current: false },
+  { name: "Home", href: "/", icon: HomeIcon, current: true },
+  { name: "Trips", href: "/trips", icon: Squares2X2Icon, current: false },
 ];
 
 const userNavigation = [
@@ -35,7 +35,7 @@ function classNames(...classes) {
   return classes.filter(Boolean).join(" ");
 }
 
-export default function AppLayout({ children }) {
+export default function AppLayout() {
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
   return (
@@ -87,8 +87,8 @@ export default function AppLayout({ children }) {
                       >
                         {navigation.map((item) => (
                           <li key={item.name}>
-                            <a
-                              href={item.href}
+                            <Link
+                              to={item.href}
                               className={classNames(
                                 item.current
                                   ? "text-purple"
@@ -106,7 +106,7 @@ export default function AppLayout({ children }) {
                                 )}
                               />
                               {item.name}
-                            </a>
+                            </Link>
                           </li>
                         ))}
                       </ul>
@@ -148,8 +148,8 @@ export default function AppLayout({ children }) {
                   >
                     {navigation.map((item) => (
                       <li key={item.name}>
-                        <a
-                          href={item.href}
+                        <Link
+                          to={item.href}
                           className={classNames(
                             item.current
                               ? "text-purple"
@@ -167,7 +167,7 @@ export default function AppLayout({ children }) {
                             )}
                           />
                           {item.name}
-                        </a>
+                        </Link>
                       </li>
                     ))}
                   </ul>
@@ -234,12 +234,12 @@ export default function AppLayout({ children }) {
                   >
                     {userNavigation.map((item) => (
                       <MenuItem key={item.name}>
-                        <a
-                          href={item.href}
+                        <Link
+                          to={item.href}
                           className="block px-3 py-1 text-sm/6 text-gray-900 data-[focus]:bg-gray-50 data-[focus]:outline-none"
                         >
                           {item.name}
-                        </a>
+                        </Link>
                       </MenuItem>
                     ))}
                   </MenuItems>
