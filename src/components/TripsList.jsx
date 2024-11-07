@@ -15,7 +15,7 @@ export default function TripsList({ trips = [] }) {
 
   function parseRange(range) {
     if (range === "Any") {
-      return { minDistance: 0, maxDistance: Infinity };
+      return { minValue: 0, maxValue: Infinity };
     }
 
     const match = range.match(/(\d+)?\s*(?:to|-)?\s*(\d+)?\s*Km|min/i);
@@ -36,14 +36,14 @@ export default function TripsList({ trips = [] }) {
     const maxTime = parseRange(paramsCopy.get("time")).maxValue;
     const minDistance = parseRange(paramsCopy.get("distance")).minValue;
     const maxDistance = parseRange(paramsCopy.get("distance")).maxValue;
-    const status = paramsCopy.get("tab") || "";
+    const status = paramsCopy.get("tab").replace("All Trips", "") || "";
 
     return (
       trip.duration >= minTime &&
       trip.duration <= maxTime &&
       trip.distance >= minDistance &&
       trip.distance <= maxDistance &&
-      trip.status === status?.toUpperCase()
+      trip.status.includes(status?.toUpperCase())
     );
   });
 
@@ -54,7 +54,7 @@ export default function TripsList({ trips = [] }) {
       <div className='flex items-center'>
         <button
           className='text-purple bg-dark border border-purple w-8 h-8 flex justify-center items-center rounded-full mr-8'
-          onClick={() => navigate(-1)}
+          onClick={() => navigate("/trips")}
         >
           <ArrowLeftIcon className='w-4 h-4' />
         </button>

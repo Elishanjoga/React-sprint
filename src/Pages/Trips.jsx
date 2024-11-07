@@ -7,7 +7,7 @@ import useFetchData from "../hooks/useFetchData";
 const tabs = [
   { name: "All Trips", href: "#", current: false },
   { name: "Completed", href: "#", current: true },
-  { name: "Cancelled", href: "#", current: false },
+  { name: "Canceled", href: "#", current: false },
 ];
 
 const distances = [{ name: "Any" }, { name: "Under 3 Km" }, { name: "3 to 6 Km" }, { name: "6 to 15 Km" }, { name: "More than 15 Km" }];
