@@ -40,7 +40,7 @@ export default function AppLayout() {
 
   return (
     <>
-      <div>
+      <div className="bg-dark">
         <Dialog
           open={sidebarOpen}
           onClose={setSidebarOpen}

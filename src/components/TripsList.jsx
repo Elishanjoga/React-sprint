@@ -10,7 +10,9 @@ export default function TripsList({ trips = [] }) {
 
   const removeQueryParam = (key) => {
     queryParams.delete(key);
-    navigate(`/trips?${queryParams.toString()}`);
+    const newUrl = `${window.location.pathname}?${queryParams.toString()}`;
+    window.history.replaceState(null, "", newUrl);
+    navigate(newUrl);
   };
 
   function parseRange(range) {
@@ -32,22 +34,26 @@ export default function TripsList({ trips = [] }) {
   const filteredTrips = trips?.filter((trip) => {
     const paramsCopy = new URLSearchParams(queryParams);
 
-    const minTime = parseRange(paramsCopy.get("time")).minValue;
-    const maxTime = parseRange(paramsCopy.get("time")).maxValue;
-    const minDistance = parseRange(paramsCopy.get("distance")).minValue;
-    const maxDistance = parseRange(paramsCopy.get("distance")).maxValue;
-    const status = paramsCopy.get("tab").replace("All Trips", "") || "";
+    const minTime = paramsCopy.get("time") ? parseRange(paramsCopy.get("time")).minValue : 0;
+    const maxTime = paramsCopy.get("time") ? parseRange(paramsCopy.get("time")).maxValue : Infinity;
+    const minDistance = paramsCopy.get("distance") ? parseRange(paramsCopy.get("distance")).minValue : 0;
+    const maxDistance = paramsCopy.get("distance") ? parseRange(paramsCopy.get("distance")).maxValue : Infinity;
+    const status = paramsCopy.get("status") ? paramsCopy.get("status").replace("All Trips", "") : "";
+    const search = paramsCopy.get("search") ? paramsCopy.get("search") : "";
+
+    const tripValues = Object.values(trip).map((value) => value?.toString());
 
     return (
       trip.duration >= minTime &&
       trip.duration <= maxTime &&
       trip.distance >= minDistance &&
       trip.distance <= maxDistance &&
-      trip.status.includes(status?.toUpperCase())
+      trip.status.includes(status?.toUpperCase()) &&
+      tripValues.some((value) => value?.toLowerCase().includes(search?.toLowerCase()))
     );
   });
 
-  if (!filteredTrips?.length) return <div>No trips found</div>;
+  if (!filteredTrips?.length) return <div className='text-white text-lg'>No trips found</div>;
 
   return (
     <div>
@@ -59,7 +65,7 @@ export default function TripsList({ trips = [] }) {
           <ArrowLeftIcon className='w-4 h-4' />
         </button>
         {[...queryParams.entries()].map(([key, value]) => (
-          <Tag key={key} value={value} removeQueryParam={removeQueryParam} />
+          <Tag key={key} value={value} removeQueryParam={() => removeQueryParam(key)} />
         ))}
       </div>
 
